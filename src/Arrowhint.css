@@ -1,0 +1,17 @@
+.arrow-hint {
+    position: absolute;
+    color: orange;
+    font-size: 2rem;
+    font-weight: bold;
+    animation: bounce 1s infinite;
+    cursor: pointer;
+    user-select: none;
+    transform: translate(-50%, -50%);
+  }
+  
+  @keyframes bounce {
+    0%   { transform: translate(-50%, -60%); }
+    50%  { transform: translate(-50%, -80%); }
+    100% { transform: translate(-50%, -60%); }
+  }
+  
