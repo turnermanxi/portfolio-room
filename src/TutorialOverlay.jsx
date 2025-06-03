@@ -1,5 +1,7 @@
 // Tutorial.jsx
 import React, { useEffect, useState } from "react";
+import { Html } from '@react-three/drei';
+
 
 const Tutorial = ({ setFocusTarget }) => {
   const [step, setStep] = useState(0);
@@ -21,6 +23,7 @@ const Tutorial = ({ setFocusTarget }) => {
   const current = steps[step];
 
   return (
+    <Html position={[0, 0, 0]}>
     <div className="absolute top-5 left-5 bg-white bg-opacity-90 text-black p-4 rounded-xl shadow-md z-50">
       <p>{current.message}</p>
 
@@ -35,6 +38,7 @@ const Tutorial = ({ setFocusTarget }) => {
         </div>
       )}
     </div>
+    </Html>
   );
 };
 
