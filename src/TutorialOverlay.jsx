@@ -1,22 +1,43 @@
 // Tutorial.jsx
 import React, { useEffect, useState } from "react";
-import { Html } from '@react-three/drei';
-
+import { Html } from "@react-three/drei";
+import "./Tutorial.css";
 
 const Tutorial = ({ setFocusTarget }) => {
   const [step, setStep] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
 
   const steps = [
-    { message: "Welcome!", highlightId: null },
-    { message: "Use your mouse or touch to look around.", highlightId: null },
-    { message: "Each object is interactive.", highlightId: "monitor" },
-    { message: "Click to explore projects!", highlightId: "shelf" },
+    { message: "Almost There!" },
+    { message: "Welcome to my portfolio room! This is undergoing maintenance as we speak." },
+    { message: "Each object will be interactive however for now, only the monitor is available with all my works." },
+    { message: "Click below to see my projects!", highlightId: "monitor" },
   ];
 
+  // ——— TYPING EFFECT ———
   useEffect(() => {
+    const { message } = steps[step];
+    setDisplayedText(""); // reset
+
+    // schedule a timeout for each character
+    const timeouts = message.split("").map((_, idx) =>
+      setTimeout(() => {
+        // slice up to idx+1 — never undefined
+        setDisplayedText(message.slice(0, idx + 1));
+      }, idx * 80)
+    );
+
+    // cleanup all pending timeouts if step changes early
+    return () => timeouts.forEach((t) => clearTimeout(t));
+  }, [step]);
+
+  // ——— ADVANCE STEP AFTER TYPING + PAUSE ———
+  useEffect(() => {
+    const pause = 1000;
+    const duration = steps[step].message.length * 80 + pause;
     const timer = setTimeout(() => {
-      setStep((prev) => (prev < steps.length - 1 ? prev + 1 : prev));
-    }, 4000);
+      if (step < steps.length - 1) setStep((s) => s + 1);
+    }, duration);
     return () => clearTimeout(timer);
   }, [step]);
 
@@ -24,22 +45,23 @@ const Tutorial = ({ setFocusTarget }) => {
 
   return (
     <Html position={[0, 0, 0]}>
-    <div className="absolute top-5 left-5 bg-white bg-opacity-90 text-black p-4 rounded-xl shadow-md z-50">
-      <p>{current.message}</p>
+      <div className="tutorial-container">
+        <p className="tutorial-text">{displayedText}</p>
 
-      {current.highlightId && (
-        <div className="mt-3 flex flex-col gap-2">
+        {current.highlightId && (
           <button
-            className="bg-gray-200 hover:bg-gray-300 px-3 py-2 rounded"
+            className="tutorial-button"
             onClick={() => setFocusTarget(current.highlightId)}
           >
             Zoom to {current.highlightId}
           </button>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </Html>
   );
 };
 
 export default Tutorial;
+// Note: The `setFocusTarget` prop is expected to be a function that handles zooming to the specified target.
+// You can implement this function in the parent component where you use the Tutorial component.
+// It should update the camera position and lookAt target based on the provided ID (e.g, "monitor").  

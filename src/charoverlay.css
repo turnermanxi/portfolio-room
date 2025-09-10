@@ -1,0 +1,60 @@
+
+
+.overlay-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: rgba(0,0,0,0.7);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  color: white;
+  font-family: 'Press Start 2P', monospace;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 250px;
+  z-index: -2;
+}
+
+.overlay-character {
+  height: 120px;
+  background: rgba(255,255,255,0.1);
+  border: 2px solid white;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.char-placeholder {
+  color: #aaa;
+  z-index: -1;
+  height: 125px;
+}
+
+.overlay-bars .bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.bar {
+  background: rgba(255,255,255,0.2);
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+}
+
+.fill.hp { background: #e74c3c; }
+.fill.exp { background: #3498db; }
+.fill.funny { background: #f1c40f; }
+
+.overlay-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}

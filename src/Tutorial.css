@@ -1,0 +1,65 @@
+/* Tutorial.css */
+
+/* Optional anime-style font (Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+.tutorial-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  animation: growIn 0.5s ease-out;
+  min-width: 350px;
+  max-width: 350px;
+  font-family: 'Press Start 2P', monospace;
+}
+
+@keyframes growIn {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.tutorial-text {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  line-height: 2;
+  min-height: 4rem;
+}
+
+.tutorial-button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 0.75rem 1rem;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.tutorial-button:hover {
+  background-color: #ddd;
+}
+
+
+@media (max-width: 480px) {
+  .tutorial-container {
+    width: 90%;
+    max-width: none;
+    left: calc(50% - 200px); /* Center on small screens */
+    right: 1%;
+    top: 1rem;
+  }
+}

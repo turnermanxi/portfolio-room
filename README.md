@@ -1,12 +1,66 @@
-# React + Vite
+# 3D Portfolio Room (React + React‑Three‑Fiber)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Interactive portfolio built with **React**, **React‑Three‑Fiber/Three.js**, and **Vite**. Uses a “room” scene to showcase projects; cards and modals bridge 3D and HTML UI.
 
-Currently, two official plugins are available:
+## Highlights
+- Scene graph with reusable components (lights, camera rigs, models)
+- HTML overlays for accessibility (no info locked in 3D only)
+- Performance tuned: useMemo/useFrame, compressed textures, GLTF/DRACO
+- Deployed as a static site (Netlify/Vercel)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
+- **UI:** React, R3F, drei
+- **Routing:** React Router
+- **Build:** Vite
+- **Styling:** CSS modules or Tailwind (optional)
+- **Tooling:** ESLint/Prettier
 
-## Expanding the ESLint configuration
+## Structure
+```
+src/
+  components/
+    3d/        # Model loaders, lights, controls
+    ui/        # Cards, modals, nav
+  assets/
+  App.jsx
+  main.jsx
+public/
+```
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+```bash
+npm i
+npm run dev
+```
+Open `http://localhost:5173`.
+
+## Scripts
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}
+```
+
+## Accessibility & Performance
+- Keyboard navigation for all links/buttons
+- Fallback HTML content for key info
+- `useGLTF` caching + draco compression
+- `Suspense` + lazy for heavy routes
+- Measure with Lighthouse/React Profiler
+
+## What I built
+- Project “shelves” mapped to routes
+- Modal detail views with repo + live links
+- Simple state store for camera focus targets
+
+## What I’d do next
+- Add tests for camera logic and route guards
+- Add CMS (content JSON or headless) to update projects
+- Add “performance mode” toggle for low‑end devices
+
+## License
+MIT
