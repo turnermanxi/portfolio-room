@@ -6,29 +6,35 @@ import "./charoverlay.css";
 import useFBX from "./useFBXLoader"; // Assuming you have a custom hook for loading FBX models
 
 function Character() {
-  const model = useFBX('/Idle1.fbx') // path to your FBX file
+  const model = useFBX("/Idle1.fbx");
   const mixer = useRef();
+  const acc = useRef(0); // accumulate time to throttle updates
 
   useEffect(() => {
-    if (model.animations.length) {
-      mixer.current = new THREE.AnimationMixer(model)
-      const action = mixer.current.clipAction(model.animations[0])
-      action.play()
+    if (model?.animations?.length) {
+      mixer.current = new THREE.AnimationMixer(model);
+      const action = mixer.current.clipAction(model.animations[0]);
+      action.play();
     }
-  }, [model])
+  }, [model]);
 
-  useFrame((state, delta) => {
-    if (mixer.current) mixer.current.update(delta)
-  })
+  useFrame((_, delta) => {
+    if (!mixer.current) return;
+    acc.current += delta;
+    if (acc.current < 1 / 30) return; // ~30 FPS updates instead of 60
+    mixer.current.update(acc.current);
+    acc.current = 0;
+  });
 
   return (
     <primitive
       object={model}
-      scale={0.04} // FBX files are often huge, so scale down
+      scale={0.04}
       position={[0, -6.4, 0]}
     />
-  )
+  );
 }
+
 
 const Overlay = ({ hp = 75, maxHp = 100, exp = 30, maxExp = 100, funny = 87, age = 30, power = "Gravity" }) => {
   const hpPercent = (hp / maxHp) * 100;
@@ -40,7 +46,10 @@ const Overlay = ({ hp = 75, maxHp = 100, exp = 30, maxExp = 100, funny = 87, age
       <div className="overlay-container">
         <div className="overlay-character">
           <div className="char-placeholder">
-            <Canvas camera={{ position: [0, .5, 2.5], fov: 35 }}>
+            <Canvas dpr={[1, 1]}
+              gl={{ antialias: false, powerPreference: "low-power" }}
+              camera={{ position: [0, .5, 2.5], fov: 35 }}>
+              
         <ambientLight intensity={1} />
         <directionalLight position={[2, 5, 2]} intensity={1.5} />
         <Suspense fallback={null}>

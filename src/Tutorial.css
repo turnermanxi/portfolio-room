@@ -47,6 +47,7 @@
   cursor: pointer;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  z-index: 9999;
 }
 
 .tutorial-button:hover {

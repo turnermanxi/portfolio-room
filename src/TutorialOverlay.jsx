@@ -8,9 +8,7 @@ const Tutorial = ({ setFocusTarget }) => {
   const [displayedText, setDisplayedText] = useState("");
 
   const steps = [
-    { message: "Almost There!" },
-    { message: "Welcome to my portfolio room! This is undergoing maintenance as we speak." },
-    { message: "Each object will be interactive however for now, only the monitor is available with all my works." },
+    { message: "Welcome to my 3D Portfolio Room!" },
     { message: "Click below to see my projects!", highlightId: "monitor" },
   ];
 
